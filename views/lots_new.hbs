@@ -1,0 +1,25 @@
+{{#unless user.username}}
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Пожалуйста, <a href="/users/login">авторизуйтесь</a> или <a href="/users/login">зарегистрируйтесь</a> для работы с системой
+        </div>
+    </div>
+{{else}}
+<section class="container">
+
+    <div class="panel-heading">
+        <h4>Создание парковочных мест</h4>
+    </div>
+
+    <div class="panel-body">
+        <form action="/lots" method="POST">
+            <div class="form-group">
+                <input type="text" name="lots_number" class="form-control" placeholder="Введите количество парковочных мест">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-success">
+            </div>
+        </form>
+    </div>
+</section>
+{{/unless}}

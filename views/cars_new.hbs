@@ -1,0 +1,48 @@
+{{#unless user.username}}
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Пожалуйста, <a href="/users/login">авторизуйтесь</a> или <a href="/users/login">зарегистрируйтесь</a> для работы с системой
+        </div>
+    </div>
+{{else}}
+<section class="container">
+	
+	<div class="panel-heading">
+		<h4>Добавление нового автомобиля</h4>
+	</div>
+	
+	<div class="panel-body">
+		<form action="/cars" method="POST">
+
+			<div class="input-group">
+                <div class="input-group-prepend">
+                <span class="input-group-text">ФИО владельца:</span>
+                </div>
+                <input type="text" name="driver_name" class="form-control" placeholder="ФИО владельца">
+			</div>
+            <br/>
+			<div class="input-group mb-3">
+                <span class="input-group-text">Номер автомобиля:</span>
+				<input type="text" name="license_plate" class="form-control" placeholder="Номер автомобиля">
+			</div>
+
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <label class="input-group-text">Парковочное место:</label>
+                </div>
+            <select name="lot" class="custom-control">
+                {{#each lots}}
+                    <option {{#equals this.status 'Занято'}} hidden {{/equals}}value="{{lot_name}}">{{lot_name}}</option>
+                {{/each}}
+            </select>
+
+            </div>
+
+			<div class="form-group">
+				<input type="submit" value="Добавить" class="btn btn-success">
+			</div>
+		</form>
+	</div>
+</section>
+{{/unless}}

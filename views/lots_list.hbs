@@ -1,0 +1,85 @@
+{{#unless user.username}}
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Пожалуйста, <a href="/users/login">авторизуйтесь</a> или <a href="/users/login">зарегистрируйтесь</a> для работы с системой
+        </div>
+    </div>
+{{else}}
+
+<section class="container">
+
+    <div class="panel-heading">
+        <h4 class="text-center">Список парковочных мест</h4>
+    </div>
+
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+            {{#each lots}}
+                    <td {{#equals status 'Свободно'}} style="background-color: #3c763d;" {{else}}  style="background-color: #ac2925;"  {{/equals}} class="text-center"><b style="font-size:35px; color:white;">{{lot_name}}
+                    </b><p style="color: white;">{{status}}</p>
+                        <br>
+                        <a href="lots/edit/{{_id}}" class="btn btn-primary">
+                        <span class="far fa-edit"></span>
+                        </a>
+                        <a class="btn btn-warning" data-toggle="modal" {{#equals status 'Свободно'}} data-target="#delModal_{{_id}}" {{else}} data-target="#nodelModal"  {{/equals}}> <span class="fas fa-trash"></span></a>
+                        <!-- Modal -->
+                        <div class="modal fade" id="delModal_{{_id}}" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form action="/lots/{{_id}}" method="POST">
+                                        <input type="hidden" value="DELETE" name="_method">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel"><b style="font-size:25px;">Удалить запись?</b></h5>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="alert alert-warning" role="alert">
+                                                <i class="fas fa-exclamation-triangle"></i> ВНИМАНИЕ!
+                                                <br>
+                                                Удаленную запись восстановить невозможно!
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть окно</button>
+                                            <button type="submit" class="btn btn-danger">Удалить запись</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- NoDelModal -->
+                        <div class="modal fade" id="nodelModal" tabindex="-1" role="dialog" aria-labelledby="nodelModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel"><b style="font-size:25px;">Удаление невозможно</b></h5>
+
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="alert alert-danger" role="alert">
+                                                <i class="fas fa-times"></i> ВНИМАНИЕ!
+                                                <br>
+                                               Нельзя удалить парковочное место, если оно принадлежит автомобилю!
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть окно</button>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+
+            {{/each}}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+{{/unless}}

@@ -1,0 +1,81 @@
+{{#unless user.username}}
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Пожалуйста, <a href="/users/login">авторизуйтесь</a> или <a href="/users/login">зарегистрируйтесь</a> для работы с системой
+        </div>
+    </div>
+{{else}}
+<section class="container">
+
+
+	<div class="panel-heading">
+		<h4 class="text-center">Список автомобилей</h4>
+	</div>
+
+	<div class="panel-body">
+		<table class="table table-striped table-bordered" id="myTable">
+			<thead>
+				<tr>
+                    <th class="text-center">Номер авто</th>
+					<th class="text-center">Данные владельца</th>
+                    <th class="text-center">Парковочное место</th>
+					<th class="text-center">Статус</th>
+					<th class="text-center">Операции</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each cars}}
+					<tr>
+                    <td class="text-center">{{license_plate}}</td>
+					<td class="text-center">{{driver_name}}</td>
+                    <td class="text-center">{{lot}}</td>
+                        {{#equals status 'Активный'}}
+					<td class="text-center"><span style="font-size:13px;"  class="badge badge-success">{{status}}</span></td>
+                        {{/equals}}
+                        {{#equals status 'Аннулирован'}}
+                            <td class="text-center"><span style="font-size:13px;" class="badge badge-danger">{{status}}</span></td>
+                        {{/equals}}
+					<td align="center"> <div style="display: flex;">
+                    <span style="margin-left:20%; margin-right: 20px;">
+                        <a href="cars/edit/{{_id}}" class="btn btn-primary">
+                        <span class="far fa-edit"></span>
+                    </a></span>
+                        <a class="btn btn-warning" data-toggle="modal" data-target="#delModal_{{_id}}"> <span class="fas fa-trash"></span></a>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="delModal_{{_id}}" tabindex="-1" role="dialog" aria-labelledby="delModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form action="/cars/{{_id}}" method="POST">
+                                        <input type="hidden" value="DELETE" name="_method">
+                                        <input name="hlot" type="hidden" value="{{lot}}">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><b style="font-size:25px;">Удалить запись?</b></h5>
+
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="alert alert-warning" role="alert">
+                                            <i class="fas fa-exclamation-triangle"></i> ВНИМАНИЕ!
+                                            <br>
+                                            Удаленную запись восстановить невозможно!
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть окно</button>
+                                        <button type="submit" class="btn btn-danger">Удалить запись</button>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					</td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+
+	</div>
+</section>
+
+{{/unless}}

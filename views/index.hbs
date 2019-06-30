@@ -1,0 +1,19 @@
+{{#unless user.username}}
+    <div class="container">
+        <div class="alert alert-warning" role="alert">
+            Пожалуйста, <a href="/users/login">авторизуйтесь</a> или <a href="/users/login">зарегистрируйтесь</a> для работы с системой
+        </div>
+    </div>
+{{else}}
+    <section class="container">
+<h3>Добро пожаловать в систему "Автопарковка", {{user.username}} !</h3>
+<div class="list-group">
+    <a href="/cars" class="list-group-item list-group-item-action">Посмотреть список автомобилей</a>
+    <a href="/lots" class="list-group-item list-group-item-action">Посмотреть список праковочных мест</a>
+    <a href="/cars/new" class="list-group-item list-group-item-action">Добавить новый автомобиль</a>
+    <a href="/lots/new" class="list-group-item list-group-item-action">Добавить новое парковочное место</a>
+
+</div>
+    </section>
+{{/unless}}
+

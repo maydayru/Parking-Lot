@@ -1,0 +1,59 @@
+<section class="container"  style="width:60%;  margin:0 20% 0 20%; ">
+
+	<table class="table">
+        {{#if error}}
+            <div class="container">
+                <div class="alert alert-danger" role="alert">{{error}}</div>
+            </div>
+        {{/if}}
+        {{#if info}}
+            <div class="container">
+                <div class="alert alert-info" role="alert">{{info}}</div>
+            </div>
+        {{/if}}
+        <tbody>
+        <tr>
+            <td>
+                <div class="panel-heading">
+                    <h4 class="text-center">Авторизация</h4>
+                </div>
+                <div class="panel-body">
+                    <form action="/users/signin" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="username" class="form-control" placeholder="Логин">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" placeholder="Пароль">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Войти" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </td>
+            <td>
+                <div class="panel-heading">
+                    <h4 class="text-center">Регистрация</h4>
+                </div>
+                <div class="panel-body">
+                    <form action="/users/create" method="POST">
+                        <div class="form-group">
+                            <input type="text" name="username" class="form-control" placeholder="Логин">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" class="form-control" placeholder="Пароль">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Регистрация" class="btn btn-primary">
+                        </div>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</section>
+
+
